@@ -1,8 +1,8 @@
 @import 'tailwindcss';
 
 :root {
-  --background: #fffaf1;
-  --foreground: #171413;
+  --background: #160f0b;
+  --foreground: #f6e5c2;
 }
 
 @theme inline {
@@ -45,24 +45,34 @@ button {
 }
 
 ::selection {
-  background: #f5c84c;
-  color: #171413;
+  background: #f0c36a;
+  color: #160f0b;
 }
 
-.promo-title {
-  color: #ffffff;
+.noir-title {
+  color: #f6e5c2;
   text-shadow:
-    5px 5px 0 #111111,
-    -3px -3px 0 #111111,
-    3px -3px 0 #111111,
-    -3px 3px 0 #111111,
-    0 9px 0 #111111;
+    0 0 18px rgb(240 195 106 / 24%),
+    4px 4px 0 #060403,
+    -2px -2px 0 #060403,
+    2px -2px 0 #060403,
+    -2px 2px 0 #060403,
+    0 7px 0 #060403;
+}
+
+.noir-grain {
+  background-image:
+    radial-gradient(circle at 20% 20%, rgb(246 229 194 / 9%) 0 1px, transparent 1px),
+    radial-gradient(circle at 80% 40%, rgb(0 0 0 / 24%) 0 1px, transparent 1px);
+  background-size: 5px 5px, 7px 7px;
+  mix-blend-mode: overlay;
+  pointer-events: none;
 }
 
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee 24s linear infinite;
+  animation: marquee 28s linear infinite;
 }
 
 .marquee-track span {
@@ -74,17 +84,18 @@ button {
   display: flex;
   width: max-content;
   gap: 16px;
-  animation: workMarquee 28s linear infinite;
+  animation: workMarquee 30s linear infinite;
 }
 
 .work-card {
   width: min(74vw, 260px);
   min-height: 360px;
   flex: 0 0 auto;
-  border: 2px solid #111111;
-  background: #fff6dd;
+  border: 1px solid rgb(240 195 106 / 42%);
+  background: #2a1710;
+  color: #f6e5c2;
   padding: 14px;
-  box-shadow: 6px 6px 0 #111111;
+  box-shadow: 0 18px 42px rgb(0 0 0 / 42%);
 }
 
 .work-card h3 {
@@ -100,7 +111,7 @@ button {
   font-size: 13px;
   font-weight: 900;
   text-transform: uppercase;
-  color: rgb(17 17 17 / 68%);
+  color: rgb(216 185 133 / 82%);
 }
 
 .comic-page {
@@ -109,16 +120,16 @@ button {
   grid-template-columns: 1fr 0.85fr;
   grid-template-rows: 1fr 0.85fr;
   gap: 8px;
-  border: 2px solid #111111;
-  background: #ffffff;
+  border: 1px solid rgb(240 195 106 / 46%);
+  background: #0e0907;
   padding: 9px;
 }
 
 .comic-page span {
   display: block;
-  border: 2px solid #111111;
+  border: 1px solid rgb(240 195 106 / 34%);
   background:
-    linear-gradient(135deg, rgb(255 255 255 / 75%), rgb(255 255 255 / 18%)),
+    linear-gradient(135deg, rgb(246 229 194 / 52%), rgb(0 0 0 / 20%)),
     currentColor;
 }
 
@@ -127,29 +138,29 @@ button {
 }
 
 .tone-cyan .comic-page {
-  color: #30c4d8;
+  color: #805032;
 }
 
 .tone-yellow .comic-page {
-  color: #f6ee4a;
+  color: #b9843e;
 }
 
 .tone-green .comic-page {
-  color: #58b86e;
+  color: #61442e;
 }
 
 .tone-red .comic-page {
-  color: #f24d2e;
+  color: #7b2d20;
 }
 
 .tone-violet .comic-page {
-  color: #7b61ff;
+  color: #3c2a24;
 }
 
 .news-stack {
   display: grid;
   gap: 14px;
-  animation: newsRoll 22s linear infinite;
+  animation: newsRoll 24s linear infinite;
 }
 
 .news-card {
@@ -158,19 +169,20 @@ button {
   grid-template-columns: 88px 1fr auto;
   align-items: center;
   gap: 16px;
-  border: 2px solid #111111;
-  background: #ffffff;
+  border: 1px solid rgb(240 195 106 / 44%);
+  background: #2a1710;
   padding: 14px 16px;
-  box-shadow: 5px 5px 0 #111111;
+  box-shadow: 0 16px 38px rgb(0 0 0 / 36%);
 }
 
 .news-card span {
   display: grid;
   height: 56px;
   place-items: center;
-  border: 2px solid #111111;
+  border: 1px solid rgb(240 195 106 / 70%);
   border-radius: 50%;
-  background: #f6ee4a;
+  background: #f0c36a;
+  color: #160f0b;
   font-size: 15px;
   font-weight: 900;
 }
@@ -183,14 +195,15 @@ button {
 }
 
 .feature-card {
-  border: 2px solid #111111;
-  background: #ffffff;
+  border: 1px solid rgb(240 195 106 / 44%);
+  background: #2a1710;
+  color: #f6e5c2;
   padding: 22px;
-  box-shadow: 7px 7px 0 #111111;
+  box-shadow: 0 18px 44px rgb(0 0 0 / 36%);
 }
 
 .feature-card-alt {
-  background: #30c4d8;
+  background: #3a2418;
 }
 
 .feature-card h3 {
@@ -206,12 +219,13 @@ button {
   font-size: 17px;
   line-height: 1.5;
   font-weight: 800;
-  color: rgb(17 17 17 / 72%);
+  color: rgb(216 185 133 / 84%);
 }
 
 .form-label {
   display: grid;
   gap: 8px;
+  color: #f6e5c2;
   font-size: 13px;
   font-weight: 900;
   text-transform: uppercase;
@@ -220,17 +234,22 @@ button {
 .form-label input,
 .form-label select {
   height: 52px;
-  border: 2px solid #111111;
-  background: #fff6dd;
+  border: 1px solid rgb(240 195 106 / 48%);
+  background: #160f0b;
+  color: #f6e5c2;
   padding: 0 14px;
   font-size: 16px;
   font-weight: 800;
   outline: none;
 }
 
+.form-label input::placeholder {
+  color: rgb(216 185 133 / 52%);
+}
+
 .form-label input:focus,
 .form-label select:focus {
-  box-shadow: 0 0 0 4px #30c4d8;
+  box-shadow: 0 0 0 4px rgb(240 195 106 / 28%);
 }
 
 @keyframes marquee {
@@ -269,13 +288,14 @@ button {
 }
 
 @media (max-width: 640px) {
-  .promo-title {
+  .noir-title {
     text-shadow:
-      3px 3px 0 #111111,
-      -2px -2px 0 #111111,
-      2px -2px 0 #111111,
-      -2px 2px 0 #111111,
-      0 6px 0 #111111;
+      0 0 14px rgb(240 195 106 / 22%),
+      3px 3px 0 #060403,
+      -2px -2px 0 #060403,
+      2px -2px 0 #060403,
+      -2px 2px 0 #060403,
+      0 5px 0 #060403;
   }
 
   .news-card {

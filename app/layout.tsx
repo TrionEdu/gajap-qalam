@@ -13,14 +13,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Ғажап Қалам - Creative League Kazakhstan',
+  title: 'Ғажап Қалам - Нуарный творческий турнир',
   description:
-    'Платформа для юных авторов, иллюстраторов и комиксистов Казахстана.',
+    'Тёплая нуарная платформа для юных авторов, иллюстраторов и комиксистов Казахстана.',
   openGraph: {
     title: 'Ғажап Қалам',
     description:
-      'Творческий сезон, подача работ, жюри, галерея финалистов и фестиваль.',
-    images: ['/images/gajap-qalam-hero.png'],
+      'Дело юных авторов: архив работ, хроника турнира, досье участника и финальный фестиваль.',
+    images: ['/images/gajap-qalam-noir.png'],
   },
 };
 
