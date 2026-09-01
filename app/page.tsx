@@ -82,14 +82,18 @@ export default function Home() {
       <nav className="fixed left-0 right-0 top-0 z-50 border-b-2 border-black bg-[#fff6dd]/92 backdrop-blur-xl">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 py-3 sm:px-7 lg:px-10">
           <a href="#top" className="flex min-w-0 items-center gap-3">
-            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border-2 border-black bg-white text-sm font-black shadow-[3px_3px_0_#111]">
-              ҒҚ
+            <span className="grid h-12 w-24 shrink-0 place-items-center rounded-full border-2 border-black bg-white px-3 shadow-[3px_3px_0_#111] sm:w-36">
+              <Image
+                src="/images/gq-logo.png"
+                alt="Gajap Qalam"
+                width={173}
+                height={91}
+                className="h-auto w-full mix-blend-multiply"
+                priority
+              />
             </span>
-            <span className="min-w-0">
-              <span className="block text-lg font-black uppercase leading-none">
-                Ғажап Қалам
-              </span>
-              <span className="block truncate text-[11px] font-black uppercase tracking-wide text-black/60">
+            <span className="hidden min-w-0 sm:block">
+              <span className="block text-[11px] font-black uppercase tracking-wide text-black/60">
                 tournament platform
               </span>
             </span>
@@ -133,8 +137,18 @@ export default function Home() {
             <p className="mb-3 text-lg font-black uppercase tracking-wide text-white drop-shadow-[2px_2px_0_#111]">
               Лучший сезон, чтобы показать своё воображение
             </p>
-            <h1 className="promo-title max-w-4xl text-[clamp(4rem,13vw,11rem)] font-black uppercase leading-[0.82] tracking-normal text-white">
-              Ғажап Қалам
+            <div className="mb-4 w-[min(520px,78vw)] rotate-[-1deg] border-2 border-black bg-white px-5 py-4 shadow-[8px_8px_0_#111]">
+              <Image
+                src="/images/gq-logo.png"
+                alt="Gajap Qalam logo"
+                width={1731}
+                height={909}
+                className="h-auto w-full mix-blend-multiply"
+                priority
+              />
+            </div>
+            <h1 className="promo-title max-w-4xl text-[clamp(3.5rem,11vw,9.4rem)] font-black uppercase leading-[0.82] tracking-normal text-white">
+              Турнир юных авторов
             </h1>
 
             <div className="mt-7 max-w-2xl rotate-[-1deg] border-2 border-black bg-[#fff6dd] p-5 shadow-[8px_8px_0_#111] sm:p-6">
