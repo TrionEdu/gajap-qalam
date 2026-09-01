@@ -48,3 +48,245 @@ button {
   background: #f5c84c;
   color: #171413;
 }
+
+.promo-title {
+  color: #ffffff;
+  text-shadow:
+    5px 5px 0 #111111,
+    -3px -3px 0 #111111,
+    3px -3px 0 #111111,
+    -3px 3px 0 #111111,
+    0 9px 0 #111111;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 24s linear infinite;
+}
+
+.marquee-track span {
+  padding: 0 26px;
+  white-space: nowrap;
+}
+
+.work-strip {
+  display: flex;
+  width: max-content;
+  gap: 16px;
+  animation: workMarquee 28s linear infinite;
+}
+
+.work-card {
+  width: min(74vw, 260px);
+  min-height: 360px;
+  flex: 0 0 auto;
+  border: 2px solid #111111;
+  background: #fff6dd;
+  padding: 14px;
+  box-shadow: 6px 6px 0 #111111;
+}
+
+.work-card h3 {
+  margin-top: 18px;
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.work-card p {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: rgb(17 17 17 / 68%);
+}
+
+.comic-page {
+  display: grid;
+  height: 235px;
+  grid-template-columns: 1fr 0.85fr;
+  grid-template-rows: 1fr 0.85fr;
+  gap: 8px;
+  border: 2px solid #111111;
+  background: #ffffff;
+  padding: 9px;
+}
+
+.comic-page span {
+  display: block;
+  border: 2px solid #111111;
+  background:
+    linear-gradient(135deg, rgb(255 255 255 / 75%), rgb(255 255 255 / 18%)),
+    currentColor;
+}
+
+.comic-page span:first-child {
+  grid-row: span 2;
+}
+
+.tone-cyan .comic-page {
+  color: #30c4d8;
+}
+
+.tone-yellow .comic-page {
+  color: #f6ee4a;
+}
+
+.tone-green .comic-page {
+  color: #58b86e;
+}
+
+.tone-red .comic-page {
+  color: #f24d2e;
+}
+
+.tone-violet .comic-page {
+  color: #7b61ff;
+}
+
+.news-stack {
+  display: grid;
+  gap: 14px;
+  animation: newsRoll 22s linear infinite;
+}
+
+.news-card {
+  display: grid;
+  min-height: 86px;
+  grid-template-columns: 88px 1fr auto;
+  align-items: center;
+  gap: 16px;
+  border: 2px solid #111111;
+  background: #ffffff;
+  padding: 14px 16px;
+  box-shadow: 5px 5px 0 #111111;
+}
+
+.news-card span {
+  display: grid;
+  height: 56px;
+  place-items: center;
+  border: 2px solid #111111;
+  border-radius: 50%;
+  background: #f6ee4a;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.news-card h3 {
+  font-size: 22px;
+  line-height: 1.05;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.feature-card {
+  border: 2px solid #111111;
+  background: #ffffff;
+  padding: 22px;
+  box-shadow: 7px 7px 0 #111111;
+}
+
+.feature-card-alt {
+  background: #30c4d8;
+}
+
+.feature-card h3 {
+  margin-top: 18px;
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.feature-card p {
+  margin-top: 12px;
+  font-size: 17px;
+  line-height: 1.5;
+  font-weight: 800;
+  color: rgb(17 17 17 / 72%);
+}
+
+.form-label {
+  display: grid;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.form-label input,
+.form-label select {
+  height: 52px;
+  border: 2px solid #111111;
+  background: #fff6dd;
+  padding: 0 14px;
+  font-size: 16px;
+  font-weight: 800;
+  outline: none;
+}
+
+.form-label input:focus,
+.form-label select:focus {
+  box-shadow: 0 0 0 4px #30c4d8;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes workMarquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 8px));
+  }
+}
+
+@keyframes newsRoll {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .work-strip,
+  .news-stack {
+    animation: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .promo-title {
+    text-shadow:
+      3px 3px 0 #111111,
+      -2px -2px 0 #111111,
+      2px -2px 0 #111111,
+      -2px 2px 0 #111111,
+      0 6px 0 #111111;
+  }
+
+  .news-card {
+    grid-template-columns: 72px 1fr;
+  }
+
+  .news-card svg {
+    display: none;
+  }
+
+  .news-card h3 {
+    font-size: 18px;
+  }
+}
