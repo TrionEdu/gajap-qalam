@@ -3,370 +3,266 @@
 import Image from 'next/image';
 import {
   ArrowRight,
-  BookOpen,
-  ChevronLeft,
-  ChevronRight,
-  FileUp,
-  GalleryHorizontalEnd,
-  Newspaper,
-  Palette,
+  CalendarDays,
+  Check,
+  Grid2X2,
+  ImageIcon,
+  Menu,
   PenLine,
-  Search,
-  ShoppingBag,
-  Sparkles,
-  Star,
-  Trophy,
-  User,
   Users,
+  X,
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 
-const heroSlides = [
+const directions = [
   {
-    kicker: 'главный баннер сезона',
-    title: 'Дело юных авторов',
-    text: 'Республиканский турнир рассказов, обложек и комиксов. Работы проходят отбор, попадают в архив и выходят на фестивальную сцену.',
-    badge: 'сезон 2026-2027',
+    id: 'story',
+    eyebrow: 'Ғажап Әңгіме',
+    title: 'Рассказ и поэма',
+    short: '800–2500 слов, свободная тема',
+    description: 'Проза или стихотворение на свободную тему — своя, не пересказанная история.',
+    metaLabel: 'Объём',
+    meta: '800–2500 слов',
+    icon: PenLine,
   },
   {
-    kicker: 'новая волна',
-    title: 'Комиксы из школ Казахстана',
-    text: 'Платформа собирает детей, которым мало обычных олимпиад: они строят миры, рисуют персонажей и пишут свои первые истории.',
-    badge: 'приём открыт',
+    id: 'cover',
+    eyebrow: 'Ғажап Мұқаба',
+    title: 'Обложка',
+    short: 'Одна иллюстрация — книга, игра, комикс',
+    description: 'Обложка книги, фильма, игры или комикса — своего или придуманного для конкурса.',
+    metaLabel: 'Формат',
+    meta: '1 иллюстрация',
+    icon: ImageIcon,
   },
   {
-    kicker: 'финал в марте',
-    title: 'Галерея, жюри, фестиваль',
-    text: 'Финалисты узнают свои места на сцене, а лучшие работы становятся частью электронной и печатной антологии.',
-    badge: '15 февраля дедлайн',
+    id: 'comic',
+    eyebrow: 'Ғажап Комикс',
+    title: 'Комикс',
+    short: '4–8 полос, своя вселенная',
+    description: 'Короткая история в панелях — своя вселенная, герой или пересказ реального случая.',
+    metaLabel: 'Объём',
+    meta: '4–8 полос',
+    icon: Grid2X2,
   },
 ];
 
-const products = [
-  ['NEW', 'Ғажап Комикс', 'Қала үстіндегі ай', 'Айша, 14', 'comic', 'қазақша'],
-  ['ХИТ', 'Ғажап Мұқаба', 'The Last Baursak', 'Мира, 16', 'cover', 'poster'],
-  ['NEW', 'Ғажап Әңгіме', 'Дом у степного моря', 'Данияр, 12', 'story', 'русский'],
-  ['+1', 'Ғажап Комикс', 'Космический ауыл', 'Санжар, 13', 'comic', 'қазақша'],
-  ['ХИТ', 'Ғажап Мұқаба', 'Жеті қабат аспан', 'Арман, 15', 'cover', 'poster'],
-  ['NEW', 'Ғажап Әңгіме', 'Письмо из 2091', 'Лейла, 17', 'story', 'русский'],
+const season = [
+  ['01', 'Регистрация', 'Сентябрь — октябрь', 'Открытая онлайн-регистрация и запись через школьных амбассадоров.'],
+  ['02', 'Мастер-классы', 'Ноябрь — январь', 'Онлайн-встречи с автором комиксов и разборы черновиков.'],
+  ['03', 'Приём работ', 'До конца января', 'Подготовка и отправка финальной версии работы по своему направлению.'],
+  ['04', 'Жюри', 'Февраль', 'Отбор финалистов и портфолио-разборы перед фестивалем.'],
+  ['05', 'Фестиваль', 'Апрель — май', 'Выставка работ финалистов и награждение.'],
 ];
 
-const releases = [
-  ['Финалисты', '50 работ', 'объявление в марте'],
-  ['Амбассадоры', '28 школ', 'идёт набор'],
-  ['Мастер-класс', 'онлайн', '20 ноября'],
-  ['Антология', 'печатная', 'апрель-май'],
+const ambassadorBenefits = [
+  'Методические материалы под три направления',
+  'Онлайн-встречи с командой турнира и куратором',
+  'Сертификат и упоминание школы на фестивале',
 ];
 
-const news = [
-  ['01 сентября', 'Открыт набор школьных амбассадоров'],
-  ['15 октября', 'Первый челлендж сезона: придумать героя'],
-  ['20 ноября', 'Онлайн-встреча с автором комиксов'],
-  ['25 января', 'Портфолио-разборы перед дедлайном'],
+const partnerBenefits = [
+  'Именная номинация в направлении',
+  'Место на фестивальной сцене весной',
+  'Печатная антология и мерч финалистов',
 ];
-
-const categories = [
-  ['Печатная антология', BookOpen],
-  ['Электронный архив', GalleryHorizontalEnd],
-  ['Мерч финалистов', ShoppingBag],
-  ['Фестиваль', Trophy],
-  ['Новости', Newspaper],
-  ['О проекте', Users],
-];
-
-function CoverCard({
-  item,
-  index,
-}: {
-  item: string[];
-  index: number;
-}) {
-  const [badge, type, title, author, tone, meta] = item;
-
-  return (
-    <article className="product-card">
-      <div className="product-badges">
-        <span>{badge}</span>
-        <span>{meta}</span>
-      </div>
-      <div className={`cover-art cover-${tone}`}>
-        <span className="cover-number">{String(index + 1).padStart(2, '0')}</span>
-        <div className="cover-panels">
-          <i />
-          <i />
-          <i />
-          <i />
-        </div>
-      </div>
-      <p className="product-type">{type}</p>
-      <h3>{title}</h3>
-      <p className="product-author">{author}</p>
-    </article>
-  );
-}
 
 export default function Home() {
-  const [activeSlide, setActiveSlide] = useState(0);
-  const slide = heroSlides[activeSlide];
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setActiveSlide((current) => (current + 1) % heroSlides.length);
-    }, 6200);
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const subject = 'Ғажап Қалам — заявка на участие';
+    const body = [
+      `Имя участника: ${data.get('name')}`,
+      `Возраст: ${data.get('age')}`,
+      `Направление: ${data.get('direction')}`,
+      `Город и школа: ${data.get('school')}`,
+      `Контакт родителя: ${data.get('contact')}`,
+      '',
+      'Согласие родителя или законного представителя подтверждено в форме.',
+    ].join('\n');
 
-    return () => window.clearInterval(timer);
-  }, []);
+    window.location.href = `mailto:ibeimish@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
 
   return (
-    <main className="min-h-screen bg-[#f5f1e8] text-[#151515]">
-      <header className="sticky top-0 z-50 bg-[#171717] text-white">
-        <div className="mx-auto grid max-w-[1440px] grid-cols-[1fr_auto_1fr] items-center px-4 sm:px-8">
-          <button aria-label="Поиск" className="justify-self-start p-5">
-            <Search size={28} />
-          </button>
-          <a href="#top" className="grid h-[70px] w-[170px] place-items-center bg-[#f5f1e8] px-5">
-            <Image
-              src="/images/gq-logo.png"
-              alt="Gajap Qalam"
-              width={173}
-              height={91}
-              className="h-auto w-full mix-blend-multiply"
-              priority
-            />
-          </a>
-          <div className="flex items-center justify-end gap-4">
-            <button aria-label="Заявки" className="relative p-4">
-              <FileUp size={25} />
-              <span className="absolute right-2 top-3 grid h-4 w-4 place-items-center rounded-full bg-[#3d63ff] text-[10px] font-black">
-                0
-              </span>
-            </button>
-            <button aria-label="Кабинет" className="p-4">
-              <User size={25} />
-            </button>
-            <a href="#submit" className="hidden text-sm font-black uppercase sm:block">
-              Войти
-            </a>
-          </div>
-        </div>
+    <main>
+      <header className="site-header">
+        <a className="brand" href="#top" aria-label="Ғажап Қалам — на главную">
+          <Image src="/images/gq-logo.png" alt="Gajap Qalam" width={142} height={74} priority />
+        </a>
 
-        <nav className="border-t border-white/15 bg-[#171717]">
-          <div className="category-strip mx-auto flex max-w-[1440px] snap-x gap-1 overflow-x-auto px-4 text-sm font-black uppercase sm:justify-center sm:px-8">
-            {categories.map(([name, Icon]) => (
-              <a key={name as string} href="#catalog" className="flex snap-start items-center gap-2 px-5 py-4 whitespace-nowrap hover:bg-white hover:text-[#171717]">
-                <Icon size={17} />
-                {name as string}
-              </a>
-            ))}
-          </div>
+        <nav className="desktop-nav" aria-label="Основная навигация">
+          <a href="#about">О турнире</a>
+          <a href="#directions">Направления</a>
+          <a href="#season">Сезон</a>
+          <a href="#ambassadors">Школам</a>
+          <a href="#register">Регистрация</a>
         </nav>
+
+        <a className="button button-primary header-cta" href="#register">Подать заявку</a>
+
+        <button
+          className="menu-button"
+          type="button"
+          aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          {menuOpen ? <X /> : <Menu />}
+        </button>
+
+        {menuOpen && (
+          <nav className="mobile-nav" aria-label="Мобильная навигация">
+            <a href="#about" onClick={() => setMenuOpen(false)}>О турнире</a>
+            <a href="#directions" onClick={() => setMenuOpen(false)}>Направления</a>
+            <a href="#season" onClick={() => setMenuOpen(false)}>Сезон</a>
+            <a href="#ambassadors" onClick={() => setMenuOpen(false)}>Школам</a>
+            <a href="#register" onClick={() => setMenuOpen(false)}>Подать заявку</a>
+          </nav>
+        )}
       </header>
 
-      <section id="top" className="relative bg-white pt-7">
-        <div className="mx-auto max-w-[1440px] px-4 sm:px-8">
-          <div className="relative min-h-[560px] overflow-hidden bg-[#120c09] shadow-[0_18px_42px_rgb(0_0_0/18%)]">
-            <Image
-              src="/images/gajap-qalam-noir.png"
-              alt="Нуарный баннер Ғажап Қалам"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,.88),rgba(0,0,0,.48)_48%,rgba(0,0,0,.12))]" />
-
-            <button
-              aria-label="Предыдущий баннер"
-              onClick={() => setActiveSlide((activeSlide + heroSlides.length - 1) % heroSlides.length)}
-              className="hero-arrow absolute left-0 top-1/2 z-20 grid h-16 w-16 -translate-y-1/2 place-items-center border-2 border-black bg-white text-black shadow-[5px_5px_0_rgb(0_0_0/65%)]"
-            >
-              <ChevronLeft size={34} />
-            </button>
-            <button
-              aria-label="Следующий баннер"
-              onClick={() => setActiveSlide((activeSlide + 1) % heroSlides.length)}
-              className="hero-arrow absolute right-0 top-1/2 z-20 grid h-16 w-16 -translate-y-1/2 place-items-center border-2 border-black bg-white text-black shadow-[-5px_5px_0_rgb(0_0_0/65%)]"
-            >
-              <ChevronRight size={34} />
-            </button>
-
-            <div className="relative z-10 flex min-h-[560px] max-w-[620px] flex-col justify-center px-8 py-16 text-white sm:px-16">
-              <p className="mb-4 text-sm font-black uppercase tracking-wide text-[#f2c56f]">
-                {slide.kicker}
-              </p>
-              <h1 className="bubble-title hero-headline text-[clamp(3.2rem,8vw,7.6rem)] font-black uppercase leading-[0.88] tracking-normal">
-                {slide.title}
-              </h1>
-              <span className="mt-5 inline-flex w-fit border-2 border-white bg-[#3d63ff] px-4 py-2 text-xs font-black uppercase text-white shadow-[5px_5px_0_rgb(0_0_0/55%)]">
-                {slide.badge}
-              </span>
-              <p className="mt-6 max-w-2xl text-xl font-bold leading-8 text-white/82">
-                {slide.text}
-              </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <a href="#submit" className="inline-flex h-13 items-center justify-center gap-2 bg-white px-6 text-sm font-black uppercase text-black">
-                  Подать работу
-                  <ArrowRight size={18} />
-                </a>
-                <a href="#catalog" className="inline-flex h-13 items-center justify-center gap-2 border-2 border-white px-6 text-sm font-black uppercase text-white">
-                  Смотреть архив
-                  <BookOpen size={18} />
-                </a>
-              </div>
-            </div>
-
-            <div className="absolute bottom-5 left-1/2 z-20 flex -translate-x-1/2 gap-3">
-              {heroSlides.map((item, index) => (
-                <button
-                  key={item.title}
-                  aria-label={`Баннер ${index + 1}`}
-                  onClick={() => setActiveSlide(index)}
-                  className={`h-1.5 w-28 ${activeSlide === index ? 'bg-[#3d63ff]' : 'bg-white/50'}`}
-                />
-              ))}
-            </div>
-
-            <aside className="floating-news" aria-label="Всплывающие новости турнира">
-              <div className="flex items-center justify-between gap-5">
-                <div>
-                  <p>Всплывающие новости</p>
-                  <h2>Хроника турнира</h2>
-                </div>
-                <Newspaper size={32} />
-              </div>
-              <div className="floating-news-window">
-                <div className="floating-news-stack">
-                  {[...news, ...news].map(([date, title], index) => (
-                    <article key={`${date}-${index}`}>
-                      <span>{date}</span>
-                      <strong>{title}</strong>
-                    </article>
-                  ))}
-                </div>
-              </div>
-            </aside>
+      <section id="top" className="hero">
+        <div className="hero-copy">
+          <p className="eyebrow">Республиканский творческий турнир · сезон 1</p>
+          <h1>Своя история.<span>Не только оценки в дневнике.</span></h1>
+          <p className="hero-lead">
+            Ғажап Қалам — турнир для подростков 10–17 лет, которые пишут, рисуют обложки и делают комиксы. Три направления, один сезон: от регистрации осенью до фестиваля весной.
+          </p>
+          <div className="hero-actions">
+            <a className="button button-primary" href="#register">Подать заявку</a>
+            <a className="text-link" href="#directions">Три направления <ArrowRight aria-hidden="true" /></a>
           </div>
+        </div>
+
+        <div className="hero-directions" aria-label="Направления турнира">
+          {directions.map(({ icon: Icon, ...direction }) => (
+            <a className={`hero-direction ${direction.id}`} href={`#${direction.id}`} key={direction.id}>
+              <Icon aria-hidden="true" />
+              <p>{direction.eyebrow}</p>
+              <h2>{direction.title}</h2>
+              <span>{direction.short}</span>
+            </a>
+          ))}
         </div>
       </section>
 
-      <section id="catalog" className="bg-white py-12">
-        <div className="mx-auto max-w-[1440px] px-4 sm:px-8">
-          <div className="section-heading">
-            <div>
-              <h2>Хиты сезона</h2>
-              <p>Работы, которые уже выглядят как обложки будущей антологии.</p>
-            </div>
-            <a href="#submit">
-              Смотреть все
-              <ChevronRight size={19} />
-            </a>
-          </div>
-          <div className="product-grid">
-            {products.map((item, index) => (
-              <CoverCard key={item[2]} item={item} index={index} />
-            ))}
-          </div>
+      <section className="stats" aria-label="Результаты прошлого сезона">
+        <div><strong>164</strong><span>заявки в архивном сезоне</span></div>
+        <div><strong>11</strong><span>лицеев-участников</span></div>
+        <div><strong>3</strong><span>направления</span></div>
+      </section>
+
+      <section id="about" className="section about-section">
+        <p className="about-statement">Ценность турнира не в призах. В том, что у ребёнка с воображением и собственными историями впервые появляется сцена.</p>
+        <div className="about-copy">
+          <p>Ғажап Қалам — не олимпиада по программе и не конкурс на скорость. Жюри смотрит на историю, характер иллюстрации и то, насколько комикс держит внимание от первой до последней панели.</p>
+          <p>Участвовать может любой школьник 10–17 лет — самостоятельно или вместе с классом, если в школе есть учитель-амбассадор турнира.</p>
         </div>
       </section>
 
-      <section className="bg-[#f5f1e8] py-12">
-        <div className="mx-auto max-w-[1440px] px-4 sm:px-8">
-          <div className="section-heading">
-            <div>
-              <h2>Новинки архива</h2>
-              <p>Формат Bubble-витрины, но вместо покупок — детские работы, направления и статусы.</p>
-            </div>
-            <a href="#submit">
-              Подать свою
-              <ChevronRight size={19} />
-            </a>
-          </div>
+      <section id="directions" className="section directions-section">
+        <div className="section-heading">
+          <div><p className="eyebrow">Три направления</p><h2>Один сезон — три входа для разных авторов</h2></div>
+          <p>Можно подать работу в одном направлении или во всех трёх.</p>
+        </div>
 
-          <div className="release-grid">
-            {releases.map(([title, value, note], index) => (
-              <article key={title} className="release-card">
-                <span>{index + 1}</span>
-                <h3>{title}</h3>
-                <strong>{value}</strong>
-                <p>{note}</p>
+        <div className="direction-grid">
+          {directions.map(({ icon: Icon, ...direction }) => (
+            <article id={direction.id} className={`direction-card ${direction.id}`} key={direction.id}>
+              <Icon aria-hidden="true" />
+              <p className="card-eyebrow">{direction.eyebrow}</p>
+              <h3>{direction.title}</h3>
+              <p>{direction.description}</p>
+              <div className="direction-meta"><span>{direction.metaLabel}</span><strong>{direction.meta}</strong></div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="season" className="season-section">
+        <div className="section season-inner">
+          <div className="section-heading light">
+            <div><p className="eyebrow">Календарь сезона</p><h2>Пять этапов до фестиваля</h2></div>
+            <CalendarDays aria-hidden="true" />
+          </div>
+          <div className="season-grid">
+            {season.map(([number, title, date, text]) => (
+              <article className="season-card" key={number}>
+                <span className="stage-number">{number}</span><h3>{title}</h3><strong>{date}</strong><p>{text}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-white py-12">
-        <div className="mx-auto max-w-[1440px] px-4 sm:px-8">
-          <div className="section-heading">
-            <div>
-              <h2>Герои направлений</h2>
-              <p>Три входа в сезон для разных типов творческих детей.</p>
-            </div>
-          </div>
+      <section id="ambassadors" className="section people-section">
+        <div className="section-heading">
+          <div><p className="eyebrow">Школам и учителям</p><h2>Учителя-энтузиасты — главная опора турнира</h2></div>
+          <Users aria-hidden="true" />
+        </div>
 
-          <div className="heroes-grid">
-            {[
-              ['Ғажап Әңгіме', 'мини-проза, поэма, рассказ', PenLine],
-              ['Ғажап Мұқаба', 'обложка книги, фильма, игры или комикса', Palette],
-              ['Ғажап Комикс', 'короткий комикс на 4-8 страниц', BookOpen],
-            ].map(([title, text, Icon], index) => (
-              <article key={title as string} className="hero-card">
-                <Icon size={34} />
-                <h3>{title as string}</h3>
-                <p>{text as string}</p>
-                <span>{index === 0 ? 'Автор' : index === 1 ? 'Иллюстратор' : 'Комиксист'}</span>
-              </article>
-            ))}
-          </div>
+        <div className="people-grid">
+          <article className="people-card teacher-card">
+            <p className="card-eyebrow">Амбассадорам</p>
+            <h3>Станьте амбассадором в своей школе</h3>
+            <p>Амбассадор — это учитель, который лично ведёт учеников через весь сезон: от регистрации до финального фестиваля.</p>
+            <ul>{ambassadorBenefits.map((benefit) => <li key={benefit}><Check aria-hidden="true" />{benefit}</li>)}</ul>
+            <a className="button button-dark" href="mailto:ibeimish@gmail.com?subject=Ғажап Қалам — амбассадор школы&body=Школа:%0AГород:%0AИмя учителя:%0AКонтакт:%0A">Стать амбассадором</a>
+          </article>
+
+          <article className="people-card partner-card">
+            <p className="card-eyebrow">Партнёрам и издателям</p>
+            <h3>Поддержите направление или сезон</h3>
+            <p>Партнёр может закрепить своё имя за одним из трёх направлений, поддержать печать итоговой антологии или мерч финалистов.</p>
+            <ul>{partnerBenefits.map((benefit) => <li key={benefit}><Check aria-hidden="true" />{benefit}</li>)}</ul>
+            <a className="button button-light" href="mailto:ibeimish@gmail.com?subject=Ғажап Қалам — партнёрство&body=Организация:%0AФормат поддержки:%0AКонтакт:%0A">Обсудить партнёрство</a>
+          </article>
         </div>
       </section>
 
-      <section id="submit" className="bg-[#171717] py-14 text-white">
-        <div className="mx-auto grid max-w-[1440px] gap-8 px-4 sm:px-8 lg:grid-cols-[0.82fr_1.18fr]">
+      <section id="archive" className="archive-section">
+        <div className="section archive-inner">
           <div>
-            <p className="text-sm font-black uppercase text-[#f2c56f]">кабинет участника</p>
-            <h2 className="mt-3 text-5xl font-black uppercase leading-none sm:text-7xl">
-              Подать работу
-            </h2>
-            <p className="mt-5 text-xl font-bold leading-8 text-white/72">
-              Сейчас это визуальный прототип формы. Следующим этапом можно подключить реальные заявки, файлы, статусы и кабинеты родителей.
-            </p>
+            <p className="eyebrow">Архив</p><h2>Работы этого сезона появятся здесь после жюри</h2>
+            <p className="archive-copy">Архив открывается в феврале, когда жюри отберёт финалистов по всем трём направлениям.</p>
           </div>
-
-          <form className="submission-panel">
-            <label>
-              Имя участника
-              <input placeholder="Аружан Н." />
-            </label>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <label>
-                Возраст
-                <input placeholder="14" />
-              </label>
-              <label>
-                Направление
-                <select>
-                  <option>Ғажап Комикс</option>
-                  <option>Ғажап Мұқаба</option>
-                  <option>Ғажап Әңгіме</option>
-                </select>
-              </label>
-            </div>
-            <label>
-              Город и школа
-              <input placeholder="Алматы, школа / лицей" />
-            </label>
-            <button type="button" className="upload-box">
-              <FileUp size={24} />
-              Загрузить работу
-            </button>
-            <button type="button" className="submit-button">
-              Отправить заявку
-              <ArrowRight size={18} />
-            </button>
-          </form>
+          <div className="archive-preview" aria-hidden="true">{['01', '02', '03', '04', '05', '06'].map((number) => <span key={number}>{number}</span>)}</div>
+          <p className="archive-note">Публикация работ несовершеннолетних участников — только с письменного согласия родителя или законного представителя.</p>
         </div>
       </section>
+
+      <section id="register" className="section register-section">
+        <div className="register-copy">
+          <p className="eyebrow">Регистрация</p><h2>Подать заявку на участие</h2>
+          <p>На старте сезона заявки принимаются напрямую на почту команды турнира — форма соберёт данные и откроет письмо с заполненной заявкой.</p>
+        </div>
+
+        <form className="registration-form" onSubmit={handleSubmit}>
+          <label>Имя участника<input name="name" type="text" autoComplete="name" required /></label>
+          <div className="form-row">
+            <label>Возраст<input name="age" type="number" min="10" max="17" required /></label>
+            <label>Направление<select name="direction" defaultValue="" required><option value="" disabled>Выберите направление</option><option>Ғажап Әңгіме — рассказ / поэма</option><option>Ғажап Мұқаба — обложка</option><option>Ғажап Комикс — комикс</option></select></label>
+          </div>
+          <label>Город и школа<input name="school" type="text" required /></label>
+          <label>Контакт родителя (телефон или Telegram)<input name="contact" type="text" required /></label>
+          <label className="consent-row"><input name="consent" type="checkbox" required /><span>Я — родитель или законный представитель участника, согласен(на) на обработку данных и участие ребёнка в турнире.</span></label>
+          <button className="button button-primary submit-button" type="submit">Отправить заявку <ArrowRight aria-hidden="true" /></button>
+          <p className="form-note">Кнопка откроет ваш почтовый клиент с готовым письмом — ничего не отправляется автоматически.</p>
+        </form>
+      </section>
+
+      <footer className="site-footer">
+        <div className="footer-brand">
+          <Image src="/images/gq-logo.png" alt="Gajap Qalam" width={154} height={81} />
+          <p>Республиканский творческий турнир для подростков 10–17 лет: рассказ, обложка, комикс.</p>
+        </div>
+        <div className="footer-links"><a href="mailto:ibeimish@gmail.com">Написать команде</a><a href="#register">Регистрация</a><a href="#ambassadors">Школам</a></div>
+        <p className="footer-legal">Полные правила, политика в отношении работ несовершеннолетних и форма согласия родителей публикуются перед стартом приёма финальных работ.</p>
+      </footer>
     </main>
   );
 }
