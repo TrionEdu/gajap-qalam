@@ -9,6 +9,7 @@
 - Keep the supplied Gajap Qalam logo in the header and footer while adapting its scale to the approved layout.
 - The current submission form is a visual prototype; real database, uploads, and accounts are not implemented yet.
 - The registration form opens a prefilled email and does not upload files or store personal data on the site.
+- Season schedule: registration in September; master classes from September through January; submissions through the end of February; jury in March; festival in April so the season finishes before May.
 
 ## Definition Of Done
 - Main desktop viewport renders without obvious overlap, clipped critical text, or broken imagery.
