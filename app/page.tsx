@@ -4,7 +4,6 @@ import Image from 'next/image';
 import {
   ArrowRight,
   BookOpen,
-  CalendarDays,
   ChevronLeft,
   ChevronRight,
   FileUp,
@@ -20,7 +19,7 @@ import {
   User,
   Users,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const heroSlides = [
   {
@@ -110,6 +109,14 @@ export default function Home() {
   const [activeSlide, setActiveSlide] = useState(0);
   const slide = heroSlides[activeSlide];
 
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % heroSlides.length);
+    }, 6200);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
   return (
     <main className="min-h-screen bg-[#f5f1e8] text-[#151515]">
       <header className="sticky top-0 z-50 bg-[#171717] text-white">
@@ -144,7 +151,7 @@ export default function Home() {
         </div>
 
         <nav className="border-t border-white/15 bg-[#171717]">
-          <div className="mx-auto flex max-w-[1440px] snap-x gap-1 overflow-x-auto px-4 text-sm font-black uppercase sm:justify-center sm:px-8">
+          <div className="category-strip mx-auto flex max-w-[1440px] snap-x gap-1 overflow-x-auto px-4 text-sm font-black uppercase sm:justify-center sm:px-8">
             {categories.map(([name, Icon]) => (
               <a key={name as string} href="#catalog" className="flex snap-start items-center gap-2 px-5 py-4 whitespace-nowrap hover:bg-white hover:text-[#171717]">
                 <Icon size={17} />
@@ -171,25 +178,28 @@ export default function Home() {
             <button
               aria-label="Предыдущий баннер"
               onClick={() => setActiveSlide((activeSlide + heroSlides.length - 1) % heroSlides.length)}
-              className="absolute left-0 top-1/2 z-20 grid h-16 w-16 -translate-y-1/2 place-items-center border-2 border-black bg-white text-black shadow-[5px_5px_0_rgb(0_0_0/65%)]"
+              className="hero-arrow absolute left-0 top-1/2 z-20 grid h-16 w-16 -translate-y-1/2 place-items-center border-2 border-black bg-white text-black shadow-[5px_5px_0_rgb(0_0_0/65%)]"
             >
               <ChevronLeft size={34} />
             </button>
             <button
               aria-label="Следующий баннер"
               onClick={() => setActiveSlide((activeSlide + 1) % heroSlides.length)}
-              className="absolute right-0 top-1/2 z-20 grid h-16 w-16 -translate-y-1/2 place-items-center border-2 border-black bg-white text-black shadow-[-5px_5px_0_rgb(0_0_0/65%)]"
+              className="hero-arrow absolute right-0 top-1/2 z-20 grid h-16 w-16 -translate-y-1/2 place-items-center border-2 border-black bg-white text-black shadow-[-5px_5px_0_rgb(0_0_0/65%)]"
             >
               <ChevronRight size={34} />
             </button>
 
-            <div className="relative z-10 flex min-h-[560px] max-w-3xl flex-col justify-center px-8 py-16 text-white sm:px-16">
+            <div className="relative z-10 flex min-h-[560px] max-w-[620px] flex-col justify-center px-8 py-16 text-white sm:px-16">
               <p className="mb-4 text-sm font-black uppercase tracking-wide text-[#f2c56f]">
                 {slide.kicker}
               </p>
-              <h1 className="bubble-title text-[clamp(3.2rem,8vw,7.6rem)] font-black uppercase leading-[0.88] tracking-normal">
+              <h1 className="bubble-title hero-headline text-[clamp(3.2rem,8vw,7.6rem)] font-black uppercase leading-[0.88] tracking-normal">
                 {slide.title}
               </h1>
+              <span className="mt-5 inline-flex w-fit border-2 border-white bg-[#3d63ff] px-4 py-2 text-xs font-black uppercase text-white shadow-[5px_5px_0_rgb(0_0_0/55%)]">
+                {slide.badge}
+              </span>
               <p className="mt-6 max-w-2xl text-xl font-bold leading-8 text-white/82">
                 {slide.text}
               </p>
@@ -216,7 +226,7 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="floating-news">
+            <aside className="floating-news" aria-label="Всплывающие новости турнира">
               <div className="flex items-center justify-between gap-5">
                 <div>
                   <p>Всплывающие новости</p>
@@ -234,7 +244,7 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-            </div>
+            </aside>
           </div>
         </div>
       </section>

@@ -18,6 +18,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -25,6 +26,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
 
 button,
@@ -44,6 +46,14 @@ button {
   cursor: pointer;
 }
 
+.category-strip {
+  scrollbar-width: none;
+}
+
+.category-strip::-webkit-scrollbar {
+  display: none;
+}
+
 ::selection {
   background: #3d63ff;
   color: #ffffff;
@@ -58,10 +68,14 @@ button {
     0 7px 0 #000000;
 }
 
+.hero-headline {
+  max-width: min(620px, 52vw);
+}
+
 .floating-news {
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: 67%;
+  top: 51%;
   z-index: 30;
   width: min(430px, calc(100% - 32px));
   transform: translate(-50%, -50%) rotate(-1.5deg);
@@ -70,6 +84,10 @@ button {
   color: #151515;
   padding: 20px;
   box-shadow: 12px 12px 0 rgb(0 0 0 / 78%);
+}
+
+.floating-news:hover .floating-news-stack {
+  animation-play-state: paused;
 }
 
 .floating-news p {
@@ -170,6 +188,7 @@ button {
   position: relative;
   min-width: 0;
   background: #ffffff;
+  padding-bottom: 12px;
 }
 
 .product-badges {
@@ -257,7 +276,7 @@ button {
 }
 
 .product-type {
-  margin-top: 14px;
+  margin: 14px 12px 0;
   color: rgb(21 21 21 / 55%);
   font-size: 12px;
   font-weight: 900;
@@ -265,15 +284,14 @@ button {
 }
 
 .product-card h3 {
-  margin-top: 4px;
+  margin: 4px 12px 0;
   font-size: 20px;
   font-weight: 900;
   line-height: 1.05;
 }
 
 .product-author {
-  margin-top: 8px;
-  padding-bottom: 8px;
+  margin: 8px 12px 0;
   color: #151515;
   font-size: 15px;
   font-weight: 900;
@@ -435,7 +453,11 @@ button {
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
+  .hero-headline {
+    max-width: 100%;
+  }
+
   .floating-news {
     position: relative;
     left: auto;
@@ -452,6 +474,10 @@ button {
 }
 
 @media (max-width: 640px) {
+  .hero-arrow {
+    display: none;
+  }
+
   .bubble-title {
     text-shadow:
       3px 3px 0 #000000,
