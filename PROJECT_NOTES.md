@@ -4,6 +4,7 @@
 - Build the site as a polished platform for "Ғажап Қалам", a Kazakhstan youth creative tournament.
 - Use the provided `gq.png` logo as the brand mark.
 - Match the user-approved Claude artifact: a light editorial layout, blue accent, large centered headline, three pastel direction cards, season timeline, school/partner blocks, archive preview, and registration form.
+- Use the seven user screenshots from 2026-09-14 as the literal desktop reference for scale, spacing and hierarchy: narrow centered content, restrained heading sizes, light timeline, equal white school/partner cards, unframed archive numbers and a narrow centered form.
 - Preserve the artifact's concise Russian copy and clear one-page navigation.
 - Keep the supplied Gajap Qalam logo in the header and footer while adapting its scale to the approved layout.
 - The current submission form is a visual prototype; real database, uploads, and accounts are not implemented yet.
@@ -24,6 +25,7 @@
 - 2026-09-13: Mobile browser check at 390px confirmed no horizontal overflow, hidden mobile slider arrows, and hidden category scrollbar.
 - 2026-09-13: External Claude artifact could not be inspected because Claude required sign-in.
 - 2026-09-14: Claude artifact opened successfully in the user's authenticated session and the user explicitly approved it as the replacement design.
+- 2026-09-14: The first light implementation was rejected because it widened the layout, enlarged and over-weighted headings, darkened the timeline, colored the partner card blue and framed the archive. Those deviations must not return.
 
 ## Checked External References
 - `bubble.ru`: used only as a layout and product-surface reference, not copied verbatim.
@@ -33,3 +35,4 @@
 - Bright orange sale-style promo layout: felt too commercial and not aligned with the user direction.
 - Full noir detective-only layout: atmospheric, but less close to Bubble's comic-media portal structure.
 - Dark Bubble-style portal with a floating news card: superseded by the approved light Claude artifact on 2026-09-14.
+- First Claude-inspired implementation: rejected for changing the reference's proportions and component treatment instead of matching it closely.
