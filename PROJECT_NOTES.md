@@ -18,6 +18,7 @@
 - Brand asset assignment updated on 2026-10-12: `phavicon.png` is the favicon and Apple touch icon; `black logo GQ.png` is the header/footer lockup; `banner.png` is the main hero artwork.
 - The main banner already contains a Gajap Qalam mark, so the former separate hero seal is removed to avoid duplicated branding.
 - The owner replaced the hero artwork with the wider `banner2.png` on 2026-10-12; use a fresh asset URL and responsive crop so browsers do not retain the previous banner from cache.
+- The owner requires every detail of `banner2.png` to remain visible without cropping: use `object-fit: contain` on desktop and show the complete banner as a separate full-width media strip above the hero copy on narrow screens.
 
 ## Definition Of Done
 - Main desktop viewport renders without obvious overlap, clipped critical text, or broken imagery.

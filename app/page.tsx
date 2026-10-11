@@ -215,14 +215,17 @@ export default function Home() {
       </header>
 
       <section id="top" className="hero">
-        <Image
-          className="hero-image"
-          src="/images/gajap-qalam-banner-v2.png"
-          alt="Школьники с планшетами и альбомами бегут навстречу новому сезону Gajap Qalam"
-          fill
-          priority
-          sizes="100vw"
-        />
+        <div className="hero-media">
+          <Image
+            className="hero-image"
+            src="/images/gajap-qalam-banner-v2.png"
+            alt="Школьники с планшетами и альбомами бегут навстречу новому сезону Gajap Qalam"
+            fill
+            priority
+            sizes="100vw"
+            style={{ objectFit: "contain" }}
+          />
+        </div>
         <div className="hero-inner">
           <div className="hero-copy">
             <p className="eyebrow">Республиканский творческий турнир · сезон 1</p>
