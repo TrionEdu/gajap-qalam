@@ -13,14 +13,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Ғажап Қалам — республиканский творческий турнир',
+  title: 'Gajap Qalam — республиканский творческий турнир',
   description:
-    'Турнир для подростков 10–17 лет, которые пишут, рисуют обложки и делают комиксы.',
+    'Открытая творческая сцена для школьников Казахстана 10–17 лет: комиксы, сценарии и концепт-арт.',
+  icons: {
+    icon: '/images/gajap-qalam-logo.png',
+    apple: '/images/gajap-qalam-logo.png',
+  },
   openGraph: {
-    title: 'Ғажап Қалам',
+    title: 'Gajap Qalam',
     description:
-      'Дело юных авторов: архив работ, хроника турнира, досье участника и финальный фестиваль.',
-    images: ['/images/gajap-qalam-noir.png'],
+      'Комиксы, сценарии, концепт-арт и финальный фестиваль для юных авторов Казахстана.',
+    images: ['/images/gajap-qalam-hero.png'],
   },
 };
 

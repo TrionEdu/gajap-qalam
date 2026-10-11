@@ -11,6 +11,10 @@
 - The registration form opens a prefilled email and does not upload files or store personal data on the site.
 - Season schedule: registration in September; master classes from September through January; submissions through the end of February; jury in March; festival in April so the season finishes before May.
 - Public source repository: `https://github.com/TrionEdu/gajap-qalam`. The GitHub remote is named `github`; the existing Sites remote remains `origin`.
+- Use the supplied `telegaaagq.png` circular pencil character logo in the header, hero, footer and favicon. Preserve the exact artwork rather than redrawing it.
+- The 2026-10-12 Claude export adds useful visual energy and content: vivid hero artwork, theme switching, richer competition tracks, a special Great Steppe nomination, collaboration calls, a rotating showcase and a fuller registration questionnaire.
+- Keep the public site honest: do not reproduce the export's fake in-memory post publishing, comments, votes, registration-success alerts or file-upload implications as working platform features.
+- Updated directions: Comics and Manga; Scenario and Storytelling; Concept Art and Merch; plus the special nomination Legends of the Great Steppe: Neo-Nomads.
 
 ## Definition Of Done
 - Main desktop viewport renders without obvious overlap, clipped critical text, or broken imagery.
@@ -28,6 +32,8 @@
 - 2026-09-13: External Claude artifact could not be inspected because Claude required sign-in.
 - 2026-09-14: Claude artifact opened successfully in the user's authenticated session and the user explicitly approved it as the replacement design.
 - 2026-09-14: The first light implementation was rejected because it widened the layout, enlarged and over-weighted headings, darkened the timeline, colored the partner card blue and framed the archive. Those deviations must not return.
+- 2026-10-12: The Claude Artifact URL required authentication in a fresh browser session. The supplied `gajapqalam-next` export was inspected as the matching source implementation.
+- 2026-10-12: The export's platform-like interactions were classified as prototypes only; the production site keeps email-based actions and explicitly states that it does not store registration data.
 
 ## Checked External References
 - `bubble.ru`: used only as a layout and product-surface reference, not copied verbatim.
