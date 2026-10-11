@@ -15,6 +15,8 @@
 - The 2026-10-12 Claude export adds useful visual energy and content: vivid hero artwork, theme switching, richer competition tracks, a special Great Steppe nomination, collaboration calls, a rotating showcase and a fuller registration questionnaire.
 - Keep the public site honest: do not reproduce the export's fake in-memory post publishing, comments, votes, registration-success alerts or file-upload implications as working platform features.
 - Updated directions: Comics and Manga; Scenario and Storytelling; Concept Art and Merch; plus the special nomination Legends of the Great Steppe: Neo-Nomads.
+- Brand asset assignment updated on 2026-10-12: `phavicon.png` is the favicon and Apple touch icon; `black logo GQ.png` is the header/footer lockup; `banner.png` is the main hero artwork.
+- The main banner already contains a Gajap Qalam mark, so the former separate hero seal is removed to avoid duplicated branding.
 
 ## Definition Of Done
 - Main desktop viewport renders without obvious overlap, clipped critical text, or broken imagery.

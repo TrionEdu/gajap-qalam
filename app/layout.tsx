@@ -17,14 +17,14 @@ export const metadata: Metadata = {
   description:
     'Открытая творческая сцена для школьников Казахстана 10–17 лет: комиксы, сценарии и концепт-арт.',
   icons: {
-    icon: '/images/gajap-qalam-logo.png',
-    apple: '/images/gajap-qalam-logo.png',
+    icon: '/images/gajap-qalam-favicon.png',
+    apple: '/images/gajap-qalam-favicon.png',
   },
   openGraph: {
     title: 'Gajap Qalam',
     description:
       'Комиксы, сценарии, концепт-арт и финальный фестиваль для юных авторов Казахстана.',
-    images: ['/images/gajap-qalam-hero.png'],
+    images: ['/images/gajap-qalam-banner.png'],
   },
 };
 

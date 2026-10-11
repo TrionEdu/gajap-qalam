@@ -100,7 +100,7 @@ function Brand({ footer = false }: { footer?: boolean }) {
     <span className={`brand-lockup${footer ? ' brand-lockup-footer' : ''}`}>
       <Image
         className="brand-logo"
-        src="/images/gajap-qalam-logo.png"
+        src="/images/gajap-qalam-logo-black.png"
         width={72}
         height={72}
         alt=""
@@ -217,15 +217,14 @@ export default function Home() {
       <section id="top" className="hero">
         <Image
           className="hero-image"
-          src="/images/gajap-qalam-hero.png"
-          alt="Стол юного автора с комиксами, рисунками, блокнотами и карандашами"
+          src="/images/gajap-qalam-banner.png"
+          alt="Школьники с планшетами и альбомами бегут навстречу новому сезону Gajap Qalam"
           fill
           priority
           sizes="100vw"
         />
         <div className="hero-inner">
           <div className="hero-copy">
-            <Image className="hero-seal" src="/images/gajap-qalam-logo.png" width={150} height={150} alt="Логотип Gajap Qalam" priority />
             <p className="eyebrow">Республиканский творческий турнир · сезон 1</p>
             <h1>Своя история.<span>Больше, чем оценки.</span></h1>
             <p className="hero-lead">Открытая сцена для школьников Казахстана 10–17 лет, которые создают комиксы, пишут сценарии и придумывают визуальные миры.</p>
