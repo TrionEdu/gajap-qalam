@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title: 'Gajap Qalam',
     description:
       'Комиксы, сценарии, концепт-арт и финальный фестиваль для юных авторов Казахстана.',
-    images: ['/images/gajap-qalam-banner.png'],
+    images: ['/images/gajap-qalam-banner-v2.png'],
   },
 };
 

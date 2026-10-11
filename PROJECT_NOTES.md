@@ -17,6 +17,7 @@
 - Updated directions: Comics and Manga; Scenario and Storytelling; Concept Art and Merch; plus the special nomination Legends of the Great Steppe: Neo-Nomads.
 - Brand asset assignment updated on 2026-10-12: `phavicon.png` is the favicon and Apple touch icon; `black logo GQ.png` is the header/footer lockup; `banner.png` is the main hero artwork.
 - The main banner already contains a Gajap Qalam mark, so the former separate hero seal is removed to avoid duplicated branding.
+- The owner replaced the hero artwork with the wider `banner2.png` on 2026-10-12; use a fresh asset URL and responsive crop so browsers do not retain the previous banner from cache.
 
 ## Definition Of Done
 - Main desktop viewport renders without obvious overlap, clipped critical text, or broken imagery.

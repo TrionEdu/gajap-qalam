@@ -217,7 +217,7 @@ export default function Home() {
       <section id="top" className="hero">
         <Image
           className="hero-image"
-          src="/images/gajap-qalam-banner.png"
+          src="/images/gajap-qalam-banner-v2.png"
           alt="Школьники с планшетами и альбомами бегут навстречу новому сезону Gajap Qalam"
           fill
           priority
