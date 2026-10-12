@@ -1,22 +1,25 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   ArrowRight,
+  BookOpen,
   CalendarDays,
   Check,
+  ClipboardCheck,
   ImageIcon,
   Mail,
-  Menu,
-  Moon,
   PanelsTopLeft,
   PenLine,
+  Search,
   Sparkles,
-  Sun,
+  UploadCloud,
   Users,
-  X,
 } from 'lucide-react';
-import { FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { LibraryClient } from '@/components/library-client';
+import { SiteFooter, SiteHeader } from '@/components/site-chrome';
 
 const tracks = [
   {
@@ -95,39 +98,9 @@ const partnerBenefits = [
   'Поддержка печатной антологии и мерча финалистов',
 ];
 
-function Brand({ footer = false }: { footer?: boolean }) {
-  return (
-    <span className={`brand-lockup${footer ? ' brand-lockup-footer' : ''}`}>
-      <Image
-        className="brand-logo"
-        src="/images/gajap-qalam-logo-black.png"
-        width={72}
-        height={72}
-        alt=""
-        aria-hidden="true"
-      />
-      <span className="brand-wordmark">
-        <strong>Gajap Qalam</strong>
-        <span>Creative writing &amp; storytelling</span>
-      </span>
-    </span>
-  );
-}
-
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const [activeTrack, setActiveTrack] = useState(0);
   const [showcaseIndex, setShowcaseIndex] = useState(0);
-
-  useEffect(() => {
-    const savedTheme = window.localStorage.getItem('gajap-theme');
-    if (savedTheme === 'dark') {
-      document.documentElement.dataset.theme = 'dark';
-      const frame = window.requestAnimationFrame(() => setDarkMode(true));
-      return () => window.cancelAnimationFrame(frame);
-    }
-  }, []);
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -138,81 +111,12 @@ export default function Home() {
     return () => window.clearInterval(timer);
   }, []);
 
-  function toggleTheme() {
-    const next = !darkMode;
-    setDarkMode(next);
-    document.documentElement.dataset.theme = next ? 'dark' : 'light';
-    window.localStorage.setItem('gajap-theme', next ? 'dark' : 'light');
-  }
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const subject = 'Ғажап Қалам — заявка на сезон';
-    const body = [
-      `Имя и фамилия: ${data.get('name')}`,
-      `Возраст / класс: ${data.get('age')}`,
-      `Город: ${data.get('city')}`,
-      `Школа: ${data.get('school')}`,
-      `Роль: ${data.get('role')}`,
-      `Направление: ${data.get('direction')}`,
-      `Портфолио: ${data.get('portfolio') || 'не указано'}`,
-      `Учитель-наставник: ${data.get('mentor') || 'не указан'}`,
-      `Контакт родителя: ${data.get('contact')}`,
-      '',
-      'Согласие родителя или законного представителя подтверждено в форме.',
-    ].join('\n');
-    window.location.href = `mailto:ibeimish@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  }
-
   const selectedTrack = tracks[activeTrack];
   const SelectedIcon = selectedTrack.icon;
 
   return (
     <main>
-      <header className="site-header">
-        <a className="brand" href="#top" aria-label="Gajap Qalam — на главную">
-          <Brand />
-        </a>
-
-        <nav className="desktop-nav" aria-label="Основная навигация">
-          <a href="#about">О турнире</a>
-          <a href="#directions">Направления</a>
-          <a href="#showcase">Витрина</a>
-          <a href="#season">Сезон</a>
-          <a href="#register">Регистрация</a>
-        </nav>
-
-        <div className="header-actions">
-          <button className="icon-button" type="button" onClick={toggleTheme} aria-label={darkMode ? 'Включить светлую тему' : 'Включить тёмную тему'}>
-            {darkMode ? <Sun /> : <Moon />}
-          </button>
-          <a className="button button-primary header-cta" href="#register">Подать заявку</a>
-          <button
-            className="icon-button menu-button"
-            type="button"
-            aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            {menuOpen ? <X /> : <Menu />}
-          </button>
-        </div>
-
-        {menuOpen && (
-          <nav className="mobile-nav" aria-label="Мобильная навигация">
-            {[
-              ['#about', 'О турнире'],
-              ['#directions', 'Направления'],
-              ['#showcase', 'Витрина'],
-              ['#season', 'Сезон'],
-              ['#register', 'Подать заявку'],
-            ].map(([href, label]) => (
-              <a href={href} key={href} onClick={() => setMenuOpen(false)}>{label}</a>
-            ))}
-          </nav>
-        )}
-      </header>
+      <SiteHeader />
 
       <section id="top" className="hero">
         <div className="hero-media">
@@ -237,12 +141,12 @@ export default function Home() {
               комиксы, пишут сценарии и придумывают визуальные миры.
             </p>
             <div className="hero-actions">
-              <a className="button button-primary" href="#register">
+              <Link className="button button-primary" href="/submit">
                 Участвовать <ArrowRight aria-hidden="true" />
-              </a>
-              <a className="button button-glass" href="#directions">
-                Посмотреть направления
-              </a>
+              </Link>
+              <Link className="button button-glass" href="/library">
+                Читать работы
+              </Link>
             </div>
           </div>
         </div>
@@ -267,6 +171,15 @@ export default function Home() {
         <div><strong>11</strong><span>лицеев-участников</span></div>
         <div><strong>3</strong><span>творческих направления</span></div>
         <div><strong>10–17</strong><span>лет участникам</span></div>
+      </section>
+
+      <section className="platform-entry section" aria-label="Основные возможности платформы">
+        <div className="section-heading platform-heading"><p className="eyebrow">Всё в одном месте</p><h2>Подать. Проверить. Читать.</h2><p>Теперь Ғажап Қалам работает как платформа, а не как почтовая анкета.</p></div>
+        <div className="platform-actions">
+          <Link href="/submit"><UploadCloud /><span>Участникам</span><h3>Подать работу</h3><p>PDF до 20 МБ, обложка, согласие родителя и мгновенная квитанция.</p><b>Открыть форму <ArrowRight /></b></Link>
+          <Link href="/status"><Search /><span>После отправки</span><h3>Проверить статус</h3><p>Личный номер показывает этап проверки и замечания редакции.</p><b>Найти заявку <ArrowRight /></b></Link>
+          <Link href="/library"><BookOpen /><span>Читателям</span><h3>Открыть библиотеку</h3><p>Чтение на сайте, подборки финалистов и отзывы после модерации.</p><b>Перейти к работам <ArrowRight /></b></Link>
+        </div>
       </section>
 
       <section id="about" className="about-section section-band">
@@ -343,6 +256,11 @@ export default function Home() {
         </div>
       </section>
 
+      <section id="library" className="section home-library">
+        <div className="section-heading"><p className="eyebrow">Онлайн-библиотека</p><h2>Лучшие работы становятся премьерами</h2><p>Каталог пополняется только после отбора редакции и отдельного согласия на публикацию.</p></div>
+        <LibraryClient preview />
+      </section>
+
       <section id="season" className="season-section section-band">
         <div className="section season-inner">
           <div className="section-heading">
@@ -416,39 +334,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="register" className="section register-section">
-        <div className="register-copy section-heading">
-          <p className="eyebrow">Анкета участника</p>
-          <h2>Подать заявку на сезон</h2>
-          <p>Участие бесплатное. Форма соберёт данные и откроет готовое письмо в вашей почтовой программе. На сайте ничего не сохраняется.</p>
-        </div>
-        <form className="registration-form" onSubmit={handleSubmit}>
-          <div className="form-row">
-            <label>Имя и фамилия<input name="name" autoComplete="name" required /></label>
-            <label>Возраст / класс<input name="age" inputMode="numeric" required /></label>
-          </div>
-          <div className="form-row">
-            <label>Город<input name="city" required /></label>
-            <label>Школа / лицей / колледж<input name="school" required /></label>
-          </div>
-          <div className="form-row">
-            <label>Ваша роль<select name="role" required defaultValue=""><option value="" disabled>Выберите роль</option><option>Художник / иллюстратор</option><option>Сценарист / автор</option><option>Тандем</option><option>Концепт-художник</option></select></label>
-            <label>Направление<select name="direction" required defaultValue=""><option value="" disabled>Выберите направление</option>{tracks.map((track) => <option key={track.id}>{track.title}</option>)}<option>Легенды Великой Степи: Нео-Номады</option></select></label>
-          </div>
-          <label>Ссылка на портфолио <span>необязательно</span><input name="portfolio" type="url" placeholder="https://" /></label>
-          <label>Учитель-наставник <span>необязательно</span><input name="mentor" /></label>
-          <label>Контакт родителя: телефон или Telegram<input name="contact" required /></label>
-          <label className="consent-row"><input type="checkbox" required /><span>Я — родитель или законный представитель участника и согласен(на) на обработку указанных данных для организации турнира.</span></label>
-          <button className="button button-primary submit-button" type="submit">Открыть готовую заявку <ArrowRight /></button>
-          <p className="form-note">Кнопка откроет письмо на адрес команды. Автоматическая отправка, аккаунты и загрузка файлов пока не подключены.</p>
-        </form>
-      </section>
+      <section className="submission-cta section-band"><div><ClipboardCheck /><p className="eyebrow">Готовы отправить работу?</p><h2>Система сразу проверит размер файла и выдаст личный номер заявки.</h2><div><Link className="button button-primary" href="/submit">Подать работу <ArrowRight /></Link><Link className="button button-outline" href="/status">Проверить статус</Link></div></div></section>
 
-      <footer className="site-footer">
-        <a href="#top" aria-label="Gajap Qalam — наверх"><Brand footer /></a>
-        <p>Республиканский творческий турнир для школьников Казахстана 10–17 лет.</p>
-        <div className="footer-links"><a href="#directions">Направления</a><a href="#season">Календарь</a><a href="#register">Регистрация</a><a href="mailto:ibeimish@gmail.com">Написать команде</a></div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

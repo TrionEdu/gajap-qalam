@@ -13,9 +13,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Gajap Qalam — республиканский творческий турнир',
+  metadataBase: new URL('https://gajapqalam.kz'),
+  title: {
+    default: 'Gajap Qalam — платформа юных авторов',
+    template: '%s — Gajap Qalam',
+  },
   description:
-    'Открытая творческая сцена для школьников Казахстана 10–17 лет: комиксы, сценарии и концепт-арт.',
+    'Подача работ, онлайн-библиотека и творческий турнир для школьников Казахстана 10–17 лет: комиксы, сценарии и концепт-арт.',
   icons: {
     icon: [{ url: '/images/gajap-qalam-favicon-v2.png', type: 'image/png', sizes: '1589x1589' }],
     shortcut: '/images/gajap-qalam-favicon-v2.png',
@@ -24,7 +28,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Gajap Qalam',
     description:
-      'Комиксы, сценарии, концепт-арт и финальный фестиваль для юных авторов Казахстана.',
+      'Подавайте работы, читайте новые истории и участвуйте в творческом турнире юных авторов Казахстана.',
+    url: 'https://gajapqalam.kz',
+    siteName: 'Gajap Qalam',
+    locale: 'ru_KZ',
+    type: 'website',
     images: ['/images/gajap-qalam-banner-v2.png'],
   },
 };

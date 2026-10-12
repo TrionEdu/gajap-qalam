@@ -2,14 +2,15 @@
 
 ## Project goal
 
-Maintain the public website for the Ғажап Қалам youth creative tournament. The current product is a polished one-page informational site, not a complete submission platform.
+Maintain the public platform for the Ғажап Қалам youth creative tournament: information, submissions, status tracking, editorial moderation and an online library.
 
 ## Product constraints
 
 - Preserve the approved light editorial visual direction and compact Apple-like proportions.
 - Keep the current five-stage season calendar unless the owner explicitly changes it.
-- Do not claim that registration data or uploaded files are stored. The current form only opens a prefilled email.
-- Treat database storage, accounts, authentication and file uploads as unimplemented features.
+- Registration data is stored in D1 and uploaded work files are stored privately in R2. Do not imply that these files are public before editorial selection.
+- Treat participant accounts and self-service authentication as unimplemented. Editor access uses the Sites identity header and the configured owner email.
+- Publication requires separate parent consent. Public reviews require moderation.
 - Keep participant and parent-facing copy clear and suitable for a youth tournament.
 - Do not publish personal information about minors.
 
