@@ -122,3 +122,7 @@
 - Owner explicitly approves v11 photographic appearance; requests only a slightly more forward running direction.
 - One built-in imagegen edit of v11: trajectories rotated toward camera, more frontal torsos/knees, small rightward component. Saved `public/images/qalam-festival-cover-v12.png`, exact 1664 × 936; approved v11 kept separately.
 - Reviewed full image and close crops covering all faces/hands/clothes: forward movement visible, props/full bodies retained, no obvious extra limbs or previous marbled black fabric. Gait differences are subtler in frontal view. This revision itself not yet owner-approved, integrated or published.
+
+### Header logo spacing — 2026-10-12
+- Owner requested more equal breathing room above and below the new horizontal header logo.
+- Removed the conflicting fixed-width/max-height combination that compressed the source proportions. Header logo now keeps its intrinsic aspect ratio at 50 px high on desktop and 44 px on mobile, centered inside the existing 76 px and 70 px header heights. Footer sizing remains independent.
