@@ -23,6 +23,7 @@
 - The owner restored the hero copy and calls to action on 2026-10-12: on desktop they align with the banner's upper-right logo without covering it; on narrow screens they remain a separate blue block below the complete banner.
 - Mobile hero order updated from the owner's 2026-10-12 phone reference: copy and calls to action come first, followed by a 16:9 left-focused banner crop that keeps the children and QALAM artwork prominent. Desktop remains unchanged.
 - The supplied `phavicon.png` already matched the tracked favicon asset exactly; use the new `gajap-qalam-favicon-v2.png` URL in icon, shortcut and Apple metadata to refresh browser caches.
+- Primary header/footer branding updated on 2026-10-12 to the supplied horizontal `LOGO GQ.png`. Keep the complete lockup visible without cropping; the separate typed wordmark is removed.
 
 ## Definition Of Done
 - Main desktop viewport renders without obvious overlap, clipped critical text, or broken imagery.

@@ -8,8 +8,14 @@ import { useEffect, useState } from 'react';
 export function Brand({ footer = false }: { footer?: boolean }) {
   return (
     <span className={`brand-lockup${footer ? ' brand-lockup-footer' : ''}`}>
-      <Image className="brand-logo" src="/images/gajap-qalam-logo-black.png" width={72} height={72} alt="" aria-hidden="true" />
-      <span className="brand-wordmark"><strong>Gajap Qalam</strong><span>Creative writing &amp; storytelling</span></span>
+      <Image
+        className="brand-logo"
+        src="/images/gajap-qalam-logo-horizontal.png"
+        width={3149}
+        height={1342}
+        alt="Gajap Qalam — Creative Writing & Storytelling"
+        priority={!footer}
+      />
     </span>
   );
 }
