@@ -19,6 +19,7 @@
 - The main banner already contains a Gajap Qalam mark, so the former separate hero seal is removed to avoid duplicated branding.
 - The owner replaced the hero artwork with the wider `banner2.png` on 2026-10-12; use a fresh asset URL and responsive crop so browsers do not retain the previous banner from cache.
 - The owner requires every detail of `banner2.png` to remain visible without cropping: use `object-fit: contain` on desktop and show the complete banner as a separate full-width media strip above the hero copy on narrow screens.
+- The approved 2026-10-12 banner composition removes all overlaid hero copy: the complete artwork sits directly below the header, followed immediately by the news rail and statistics, matching the supplied `qqqq.png` reference.
 
 ## Definition Of Done
 - Main desktop viewport renders without obvious overlap, clipped critical text, or broken imagery.

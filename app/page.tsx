@@ -215,6 +215,7 @@ export default function Home() {
       </header>
 
       <section id="top" className="hero">
+        <h1 className="sr-only">Ғажап Қалам — республиканский творческий турнир</h1>
         <div className="hero-media">
           <Image
             className="hero-image"
@@ -225,17 +226,6 @@ export default function Home() {
             sizes="100vw"
             style={{ objectFit: "contain" }}
           />
-        </div>
-        <div className="hero-inner">
-          <div className="hero-copy">
-            <p className="eyebrow">Республиканский творческий турнир · сезон 1</p>
-            <h1>Своя история.<span>Больше, чем оценки.</span></h1>
-            <p className="hero-lead">Открытая сцена для школьников Казахстана 10–17 лет, которые создают комиксы, пишут сценарии и придумывают визуальные миры.</p>
-            <div className="hero-actions">
-              <a className="button button-primary" href="#register">Участвовать <ArrowRight aria-hidden="true" /></a>
-              <a className="button button-glass" href="#directions">Посмотреть направления</a>
-            </div>
-          </div>
         </div>
       </section>
 
