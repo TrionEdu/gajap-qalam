@@ -21,6 +21,8 @@
 - The owner requires every detail of `banner2.png` to remain visible without cropping: use `object-fit: contain` on desktop and show the complete banner as a separate full-width media strip above the hero copy on narrow screens.
 - The approved 2026-10-12 banner composition removes all overlaid hero copy: the complete artwork sits directly below the header, followed immediately by the news rail and statistics, matching the supplied `qqqq.png` reference.
 - The owner restored the hero copy and calls to action on 2026-10-12: on desktop they align with the banner's upper-right logo without covering it; on narrow screens they remain a separate blue block below the complete banner.
+- Mobile hero order updated from the owner's 2026-10-12 phone reference: copy and calls to action come first, followed by a 16:9 left-focused banner crop that keeps the children and QALAM artwork prominent. Desktop remains unchanged.
+- The supplied `phavicon.png` already matched the tracked favicon asset exactly; use the new `gajap-qalam-favicon-v2.png` URL in icon, shortcut and Apple metadata to refresh browser caches.
 
 ## Definition Of Done
 - Main desktop viewport renders without obvious overlap, clipped critical text, or broken imagery.
