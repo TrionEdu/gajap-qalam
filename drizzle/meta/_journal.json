@@ -15,6 +15,13 @@
       "when": 1793051065744,
       "tag": "0001_first_stellaris",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1793056854827,
+      "tag": "0002_gigantic_patriot",
+      "breakpoints": true
     }
   ]
 }

@@ -31,7 +31,8 @@ export async function GET(request: Request) {
   const publications = await env.DB.prepare(
     `SELECT id, slug, title, subtitle, author_label AS authorLabel, language,
       issue_label AS issueLabel, price_kzt AS priceKzt, preview_pages AS previewPages,
-      page_count AS pageCount, status, featured, rights_confirmed AS rightsConfirmed,
+      page_count AS pageCount, status, featured, category, series_label AS seriesLabel,
+      is_new AS isNew, rights_confirmed AS rightsConfirmed,
       view_count AS viewCount, created_at AS createdAt
      FROM publications ORDER BY created_at DESC LIMIT 200`,
   ).all();
@@ -59,6 +60,9 @@ export async function POST(request: Request) {
     const authorLabel = cleanText(form.get('authorLabel'), 120);
     const language = cleanText(form.get('language'), 40);
     const issueLabel = cleanText(form.get('issueLabel'), 80);
+    const category = cleanText(form.get('category'), 30) || 'other';
+    const seriesLabel = cleanText(form.get('seriesLabel'), 120);
+    const isNew = form.get('isNew') === 'true';
     const priceKzt = Number(form.get('priceKzt'));
     const requestedPreviewPages = Number(form.get('previewPages'));
     const status = cleanText(form.get('status'), 30);
@@ -68,7 +72,7 @@ export async function POST(request: Request) {
     if (!title || !description || !authorLabel || !language) {
       return json({ error: 'Заполните название, описание, автора и язык.' }, { status: 400 });
     }
-    if (!rightsConfirmed) {
+    if (status === 'published' && !rightsConfirmed) {
       return json({ error: 'Сначала подтвердите права на коммерческое размещение.' }, { status: 400 });
     }
     if (!Number.isInteger(priceKzt) || priceKzt < 0 || priceKzt > 1_000_000) {
@@ -79,6 +83,9 @@ export async function POST(request: Request) {
     }
     if (!['draft', 'coming_soon', 'published'].includes(status)) {
       return json({ error: 'Некорректный статус выпуска.' }, { status: 400 });
+    }
+    if (!['history', 'author', 'children', 'merch', 'other'].includes(category)) {
+      return json({ error: 'Некорректный раздел каталога.' }, { status: 400 });
     }
     if (!(file instanceof File) || file.type !== 'application/pdf' || file.size < 100 || file.size > MAX_PUBLICATION_PDF_BYTES) {
       return json({ error: 'Загрузите PDF размером не более 25 МБ.' }, { status: 400 });
@@ -107,12 +114,13 @@ export async function POST(request: Request) {
     try {
       await env.DB.prepare(
         `INSERT INTO publications (id, slug, title, subtitle, description, author_label, language,
-          issue_label, full_key, preview_key, cover_key, price_kzt, preview_pages, page_count,
-          status, featured, rights_confirmed, view_count, created_at, published_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 1, 0, ?, ?)`,
+          issue_label, category, series_label, is_new, full_key, preview_key, cover_key, price_kzt,
+          preview_pages, page_count, status, featured, rights_confirmed, view_count, created_at, published_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       ).bind(id, slug, title, subtitle || null, description, authorLabel, language, issueLabel || null,
-        fullKey, previewKey, coverKey, priceKzt, preview.previewPages, preview.pageCount,
-        status, now, status === 'published' ? now : null).run();
+        category, seriesLabel || null, isNew ? 1 : 0, fullKey, previewKey, coverKey, priceKzt,
+        preview.previewPages, preview.pageCount, status, 0, rightsConfirmed ? 1 : 0, 0,
+        now, status === 'published' ? now : null).run();
     } catch (error) {
       await env.BUCKET.delete(fullKey); await env.BUCKET.delete(previewKey); if (coverKey) await env.BUCKET.delete(coverKey);
       throw error;
@@ -141,9 +149,13 @@ export async function PATCH(request: Request) {
   const previewPages = Number(data?.previewPages);
   const issueLabel = cleanText(String(data?.issueLabel ?? ''), 80);
   const featured = Boolean(data?.featured);
+  const category = cleanText(String(data?.category ?? ''), 30) || 'other';
+  const seriesLabel = cleanText(String(data?.seriesLabel ?? ''), 120);
+  const isNew = Boolean(data?.isNew);
   if (!['draft', 'coming_soon', 'published', 'archived'].includes(status)) return json({ error: 'Некорректный статус.' }, { status: 400 });
   if (!Number.isInteger(priceKzt) || priceKzt < 0 || priceKzt > 1_000_000) return json({ error: 'Некорректная цена.' }, { status: 400 });
   if (!Number.isInteger(previewPages) || previewPages < 1 || previewPages > 20) return json({ error: 'Некорректный объём превью.' }, { status: 400 });
+  if (!['history', 'author', 'children', 'merch', 'other'].includes(category)) return json({ error: 'Некорректный раздел каталога.' }, { status: 400 });
   const publication = await env.DB.prepare(
     'SELECT full_key AS fullKey, preview_key AS previewKey, rights_confirmed AS rightsConfirmed FROM publications WHERE id = ? LIMIT 1',
   ).bind(id).first<{ fullKey: string; previewKey: string; rightsConfirmed: number }>();
@@ -155,9 +167,11 @@ export async function PATCH(request: Request) {
   await env.BUCKET.put(publication.previewKey, preview.bytes, { httpMetadata: { contentType: 'application/pdf', contentDisposition: 'inline' } });
   await env.DB.prepare(
     `UPDATE publications SET status = ?, price_kzt = ?, preview_pages = ?, page_count = ?,
-      issue_label = ?, featured = ?, published_at = CASE WHEN ? = 'published' THEN COALESCE(published_at, ?) ELSE published_at END
+      issue_label = ?, featured = ?, category = ?, series_label = ?, is_new = ?,
+      published_at = CASE WHEN ? = 'published' THEN COALESCE(published_at, ?) ELSE published_at END
      WHERE id = ?`,
   ).bind(status, priceKzt, preview.previewPages, preview.pageCount, issueLabel || null,
-    featured ? 1 : 0, status, new Date().toISOString(), id).run();
+    featured ? 1 : 0, category, seriesLabel || null, isNew ? 1 : 0,
+    status, new Date().toISOString(), id).run();
   return json({ ok: true });
 }

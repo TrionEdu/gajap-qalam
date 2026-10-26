@@ -15,6 +15,9 @@ export type PublicationSummary = {
   pageCount: number;
   status: PublicationStatus;
   featured: number;
+  category: 'history' | 'author' | 'children' | 'merch' | 'other';
+  seriesLabel?: string | null;
+  isNew: number;
   viewCount: number;
   rating: number;
   reviewCount: number;
