@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {
   ArrowRight,
+  BookHeart,
   BookOpen,
   CalendarDays,
   Check,
@@ -12,13 +13,12 @@ import {
   Mail,
   PanelsTopLeft,
   PenLine,
-  Search,
   Sparkles,
-  UploadCloud,
   Users,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { LibraryClient } from '@/components/library-client';
+import { MagazineCatalog } from '@/components/magazine-catalog';
 import { SiteFooter, SiteHeader } from '@/components/site-chrome';
 
 const tracks = [
@@ -174,12 +174,17 @@ export default function Home() {
       </section>
 
       <section className="platform-entry section" aria-label="Основные возможности платформы">
-        <div className="section-heading platform-heading"><p className="eyebrow">Всё в одном месте</p><h2>Подать. Проверить. Читать.</h2><p>Теперь Ғажап Қалам работает как платформа, а не как почтовая анкета.</p></div>
+        <div className="section-heading platform-heading"><p className="eyebrow">Три пространства</p><h2>Узнавать. Читать. Возвращаться.</h2><p>Ғажап Қалам объединяет события, цифровые журналы и личную читательскую полку.</p></div>
         <div className="platform-actions">
-          <Link href="/submit"><UploadCloud /><span>Участникам</span><h3>Подать работу</h3><p>PDF до 20 МБ, обложка, согласие родителя и мгновенная квитанция.</p><b>Открыть форму <ArrowRight /></b></Link>
-          <Link href="/status"><Search /><span>После отправки</span><h3>Проверить статус</h3><p>Личный номер показывает этап проверки и замечания редакции.</p><b>Найти заявку <ArrowRight /></b></Link>
-          <Link href="/library"><BookOpen /><span>Читателям</span><h3>Открыть библиотеку</h3><p>Чтение на сайте, подборки финалистов и отзывы после модерации.</p><b>Перейти к работам <ArrowRight /></b></Link>
+          <Link href="#events"><CalendarDays /><span>События</span><h3>Афиша и объявления</h3><p>Конкурсы, фестивали, встречи авторов и важные даты сезона.</p><b>Что впереди <ArrowRight /></b></Link>
+          <Link href="/magazines"><BookOpen /><span>Магазин</span><h3>Цифровые журналы</h3><p>Бесплатное превью, онлайн-читалка и полные выпуски без физического склада.</p><b>Выбрать выпуск <ArrowRight /></b></Link>
+          <Link href="/shelf"><BookHeart /><span>Личное пространство</span><h3>Моя полка</h3><p>Купленные выпуски, закладки и продолжение с последней страницы.</p><b>Открыть полку <ArrowRight /></b></Link>
         </div>
+      </section>
+
+      <section className="section home-magazines">
+        <div className="section-heading"><p className="eyebrow">Цифровое издательство</p><h2>Журналы, которые всегда с вами</h2><p>Откройте несколько страниц бесплатно. Полные выпуски читаются в браузере на телефоне, планшете и компьютере.</p></div>
+        <MagazineCatalog preview />
       </section>
 
       <section id="about" className="about-section section-band">
@@ -237,7 +242,7 @@ export default function Home() {
         </aside>
       </section>
 
-      <section id="showcase" className="showcase-section" aria-roledescription="carousel" aria-label="Новости и витрина сезона">
+      <section id="events" className="showcase-section" aria-roledescription="carousel" aria-label="Афиша и новости сезона">
         {showcase.map((slide, index) => (
           <article className={`showcase-slide ${index === showcaseIndex ? 'active' : ''}`} aria-hidden={index !== showcaseIndex} key={slide.title}>
             <Image src={slide.image} alt="" fill sizes="100vw" className={`showcase-image position-${slide.position}`} />
@@ -257,7 +262,7 @@ export default function Home() {
       </section>
 
       <section id="library" className="section home-library">
-        <div className="section-heading"><p className="eyebrow">Онлайн-библиотека</p><h2>Лучшие работы становятся премьерами</h2><p>Каталог пополняется только после отбора редакции и отдельного согласия на публикацию.</p></div>
+        <div className="section-heading"><p className="eyebrow">Работы участников</p><h2>Лучшие истории получают свою сцену</h2><p>Эта бесплатная библиотека отделена от магазина и пополняется только после отбора редакции и отдельного согласия на публикацию.</p></div>
         <LibraryClient preview />
       </section>
 

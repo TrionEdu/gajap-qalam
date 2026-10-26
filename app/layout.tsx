@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: '%s — Gajap Qalam',
   },
   description:
-    'Подача работ, онлайн-библиотека и творческий турнир для школьников Казахстана 10–17 лет: комиксы, сценарии и концепт-арт.',
+    'Цифровые комикс-журналы, онлайн-читалка, афиша и творческий турнир Gajap Qalam для нового поколения авторов Казахстана.',
   icons: {
     icon: [{ url: '/images/gajap-qalam-favicon-v2.png', type: 'image/png', sizes: '1589x1589' }],
     shortcut: '/images/gajap-qalam-favicon-v2.png',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Gajap Qalam',
     description:
-      'Подавайте работы, читайте новые истории и участвуйте в творческом турнире юных авторов Казахстана.',
+      'Читайте цифровые комиксы, следите за фестивалями и участвуйте в творческом турнире Gajap Qalam.',
     url: 'https://gajapqalam.kz',
     siteName: 'Gajap Qalam',
     locale: 'ru_KZ',

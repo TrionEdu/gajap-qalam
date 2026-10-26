@@ -45,7 +45,7 @@ export async function PATCH(request: Request) {
     if (!row.consent_publication) return json({ error: 'Нет отдельного согласия на публичную публикацию.' }, { status: 400 });
     const baseSlug = slugify(String(row.title));
     const slug = `${baseSlug}-${id.slice(-4).toLowerCase()}`;
-    const author = String(row.pen_name || row.participant_name).slice(0, 80);
+    const author = String(row.pen_name || 'Юный автор').slice(0, 80);
     const age = Number(row.age);
     await env.DB.prepare(
       `INSERT INTO works (id, submission_id, slug, title, author_name, city, age_group, direction,
@@ -55,6 +55,9 @@ export async function PATCH(request: Request) {
         summary = excluded.summary, cover_key = excluded.cover_key, published_at = excluded.published_at`,
     ).bind(`WORK-${id}`, id, slug, row.title, author, row.city, `${age} лет`, row.direction,
       row.language, row.summary, row.file_key, row.cover_key, new Date().toISOString()).run();
+  } else {
+    // Removing the published status must immediately revoke public access.
+    await env.DB.prepare('DELETE FROM works WHERE submission_id = ?').bind(id).run();
   }
   await env.DB.prepare(
     'UPDATE submissions SET status = ?, correction_note = ?, updated_at = ? WHERE id = ?',

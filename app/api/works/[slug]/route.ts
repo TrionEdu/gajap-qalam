@@ -7,7 +7,7 @@ export async function GET(_request: Request, context: { params: Promise<{ slug: 
   if (!env.DB) return json({ error: 'Каталог недоступен.' }, { status: 503 });
   const { slug } = await context.params;
   const work = await env.DB.prepare(
-    `SELECT id, slug, title, author_name AS authorName, city, age_group AS ageGroup, direction,
+    `SELECT id, slug, title, author_name AS authorName, age_group AS ageGroup, direction,
       language, summary, cover_key AS coverKey, view_count AS viewCount, published_at AS publishedAt
      FROM works WHERE slug = ? LIMIT 1`,
   ).bind(slug).first<Record<string, unknown>>();

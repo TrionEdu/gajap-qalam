@@ -16,7 +16,7 @@ export async function GET(request: Request) {
   if (query) { clauses.push('(title LIKE ? OR author_name LIKE ? OR summary LIKE ?)'); values.push(`%${query}%`, `%${query}%`, `%${query}%`); }
   const where = clauses.length ? `WHERE ${clauses.join(' AND ')}` : '';
   const result = await env.DB.prepare(
-    `SELECT w.id, w.slug, w.title, w.author_name AS authorName, w.city, w.age_group AS ageGroup,
+    `SELECT w.id, w.slug, w.title, w.author_name AS authorName, w.age_group AS ageGroup,
       w.direction, w.language, w.summary, w.cover_key AS coverKey, w.featured,
       w.view_count AS viewCount, w.published_at AS publishedAt,
       COALESCE(AVG(CASE WHEN r.status = 'approved' THEN r.rating END), 0) AS rating,

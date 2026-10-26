@@ -1,4 +1,4 @@
-import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { integer, primaryKey, sqliteTable, text, uniqueIndex } from 'drizzle-orm/sqlite-core';
 
 export const submissions = sqliteTable('submissions', {
   id: text('id').primaryKey(),
@@ -44,6 +44,61 @@ export const works = sqliteTable('works', {
   featured: integer('featured', { mode: 'boolean' }).notNull().default(false),
   viewCount: integer('view_count').notNull().default(0),
   publishedAt: text('published_at').notNull(),
+});
+
+export const publications = sqliteTable('publications', {
+  id: text('id').primaryKey(),
+  slug: text('slug').notNull().unique(),
+  title: text('title').notNull(),
+  subtitle: text('subtitle'),
+  description: text('description').notNull(),
+  authorLabel: text('author_label').notNull(),
+  language: text('language').notNull(),
+  issueLabel: text('issue_label'),
+  fullKey: text('full_key').notNull(),
+  previewKey: text('preview_key').notNull(),
+  coverKey: text('cover_key'),
+  priceKzt: integer('price_kzt').notNull().default(0),
+  previewPages: integer('preview_pages').notNull().default(3),
+  pageCount: integer('page_count').notNull(),
+  status: text('status').notNull().default('draft'),
+  featured: integer('featured', { mode: 'boolean' }).notNull().default(false),
+  rightsConfirmed: integer('rights_confirmed', { mode: 'boolean' }).notNull().default(false),
+  viewCount: integer('view_count').notNull().default(0),
+  createdAt: text('created_at').notNull(),
+  publishedAt: text('published_at'),
+});
+
+export const purchases = sqliteTable('purchases', {
+  id: text('id').primaryKey(),
+  userId: text('user_id').notNull(),
+  publicationId: text('publication_id').notNull(),
+  status: text('status').notNull().default('active'),
+  amountKzt: integer('amount_kzt').notNull(),
+  provider: text('provider'),
+  providerPaymentId: text('provider_payment_id'),
+  purchasedAt: text('purchased_at').notNull(),
+}, (table) => [
+  uniqueIndex('purchases_user_publication_unique').on(table.userId, table.publicationId),
+]);
+
+export const readingProgress = sqliteTable('reading_progress', {
+  userId: text('user_id').notNull(),
+  publicationId: text('publication_id').notNull(),
+  page: integer('page').notNull().default(1),
+  updatedAt: text('updated_at').notNull(),
+}, (table) => [
+  primaryKey({ columns: [table.userId, table.publicationId] }),
+]);
+
+export const publicationReviews = sqliteTable('publication_reviews', {
+  id: text('id').primaryKey(),
+  publicationId: text('publication_id').notNull(),
+  displayName: text('display_name').notNull(),
+  rating: integer('rating').notNull(),
+  body: text('body').notNull(),
+  status: text('status').notNull().default('pending'),
+  createdAt: text('created_at').notNull(),
 });
 
 export const reviews = sqliteTable('reviews', {

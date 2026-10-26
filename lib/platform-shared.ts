@@ -1,5 +1,7 @@
 export const MAX_PDF_BYTES = 20 * 1024 * 1024;
 export const MAX_COVER_BYTES = 2 * 1024 * 1024;
+export const MAX_PUBLICATION_PDF_BYTES = 25 * 1024 * 1024;
+export const MAX_PUBLICATION_COVER_BYTES = 4 * 1024 * 1024;
 
 export const DIRECTIONS = [
   'Комиксы и манга',

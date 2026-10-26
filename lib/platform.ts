@@ -57,6 +57,27 @@ export function isAdmin(request: Request) {
   return Boolean(email && env.ADMIN_EMAIL && email === env.ADMIN_EMAIL.toLowerCase());
 }
 
+export function requestUserId(request: Request) {
+  return request.headers.get('oai-authenticated-user-id')?.trim() || null;
+}
+
+export async function getReaderAccess(
+  request: Request,
+  publication: { id: string; priceKzt?: number | null; status?: string | null },
+) {
+  if ((publication.priceKzt ?? 0) <= 0 && publication.status === 'published') {
+    return { access: 'full' as const, userId: requestUserId(request) };
+  }
+  const userId = requestUserId(request);
+  if (!userId || publication.status !== 'published' || !env.DB) {
+    return { access: 'preview' as const, userId };
+  }
+  const purchase = await env.DB.prepare(
+    `SELECT id FROM purchases WHERE user_id = ? AND publication_id = ? AND status = 'active' LIMIT 1`,
+  ).bind(userId, publication.id).first<{ id: string }>();
+  return { access: purchase ? 'full' as const : 'preview' as const, userId };
+}
+
 export async function notifySubmission(input: {
   id: string;
   title: string;

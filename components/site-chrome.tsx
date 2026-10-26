@@ -21,11 +21,10 @@ export function Brand({ footer = false }: { footer?: boolean }) {
 }
 
 const links = [
-  ['/submit', 'Подать работу'],
-  ['/library', 'Библиотека'],
-  ['/#directions', 'Направления'],
-  ['/#season', 'Сезон'],
-  ['/status', 'Статус заявки'],
+  ['/magazines', 'Журналы'],
+  ['/#events', 'Афиша'],
+  ['/shelf', 'Моя полка'],
+  ['/#season', 'Конкурс'],
 ];
 
 export function SiteHeader() {
@@ -74,7 +73,7 @@ export function SiteFooter() {
       <Link href="/" aria-label="Gajap Qalam, на главную"><Brand footer /></Link>
       <p>Цифровая сцена для юных авторов Казахстана 10–17 лет.</p>
       <div className="footer-links">
-        <Link href="/submit">Подать работу</Link><Link href="/library">Библиотека</Link><Link href="/status">Статус заявки</Link><Link href="/privacy">Конфиденциальность</Link><a href="mailto:ibeimish@gmail.com">Написать команде</a>
+        <Link href="/magazines">Журналы</Link><Link href="/shelf">Моя полка</Link><Link href="/library">Работы участников</Link><Link href="/submit">Подать работу</Link><Link href="/status">Статус заявки</Link><Link href="/privacy">Конфиденциальность</Link><a href="mailto:ibeimish@gmail.com">Написать команде</a>
       </div>
     </footer>
   );
